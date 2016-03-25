@@ -1,0 +1,7 @@
+---
+# Repos for Debian
+# See http://pkg.jenkins-ci.org/debian-stable/
+- name: Get the jenkins repo
+  apt_key:
+    url: http://pkg.jenkins-ci.org/debian-stable/jenkins-ci.org.key
+    state: present
