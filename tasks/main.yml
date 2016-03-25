@@ -1,3 +1,5 @@
 ---
 # tasks file for jenkins-2.0
+- include: "Prerequisites-{{ ansible_os_family}}.yml"
 - include: "Repo-{{ ansible_os_family }}.yml"
+- include: "Config-{{ ansible_os_family }}.yml"

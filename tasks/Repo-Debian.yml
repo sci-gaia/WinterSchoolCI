@@ -5,3 +5,14 @@
   apt_key:
     url: http://pkg.jenkins-ci.org/debian-stable/jenkins-ci.org.key
     state: present
+
+- name: Ensure that the repo is enabled
+  lineinfile:
+    line: deb http://pkg.jenkins-ci.org/debian-stable binary/
+    dest:  /etc/apt/sources.list
+    state: present
+
+- name: Ensure Jenkins is present
+  package:
+    name: "jenkins"
+    state: latest

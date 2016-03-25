@@ -1,0 +1,18 @@
+---
+# prerequistes for the jenkins server on Debian
+- name: Ensure prerequiste packages are installed
+  package:
+    name: "{{ item }}"
+    state: present
+  with_items:
+    - ufw
+# We will add these to a var later
+
+- name: Ensure the correct ports are open (8080)
+  ufw:
+    direction: in
+    log: yes
+    logging: low
+    name: jenkins
+    proto: tcp
+    rule: allow

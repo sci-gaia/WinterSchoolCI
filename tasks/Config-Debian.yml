@@ -1,0 +1,6 @@
+---
+#  Configuration of Jenkins for Debian
+- name: Ensure that the Jenkins server is running
+  service:
+    name: jenkins
+    state: started
