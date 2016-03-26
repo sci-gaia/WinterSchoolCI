@@ -1,0 +1,51 @@
+---
+- name: debug the docker package
+  debug:
+    var:  docker_package["Debian"]
+  tags:
+    - docker
+    - debug
+
+- name: Remove existing docker-lxc if present
+  apt:
+    name: lxc-docker
+    purge: yes
+    state: absent
+
+- name: Set correct policy for Docker
+  shell: apt-cache policy docker-engine
+
+- name: Ensure that Docker Engine is on the host
+  apt:
+    name: "{{ docker_package[ansible_os_family] }}"
+    state: present
+    update_cache: yes
+  tags:
+    - docker
+
+- name: Docker-Py local
+  pip:
+    name: docker-py
+    state: present
+  tags:
+    - docker
+
+- name: ensure docker is running
+  service:
+    name: docker
+    state: started
+  tags:
+    - docker
+
+
+- name: pull a build slave
+  docker:
+    docker_url: unix://var/run/docker.sock
+    name: docker-buildslave
+    image: evarga/jenkins-slave
+    state: reloaded
+    pull: always
+    insecure_registry: true
+    docker_api_version: 1.22
+  tags:
+    - docker
