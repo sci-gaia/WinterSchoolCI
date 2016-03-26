@@ -5,14 +5,35 @@
   apt_key:
     url: http://pkg.jenkins-ci.org/debian-stable/jenkins-ci.org.key
     state: present
+  tags:
+    - repos
 
-- name: Ensure that the repo is enabled
+- name: Add the Docker key
+  apt_key:
+    keyserver: hkp://p80.pool.sks-keyservers.net:80
+    id: 58118E89F3A912897C070ADBF76221572C52609D
+    state: present
+  tags:
+    - repos
+
+- name: Ensure that the Jenkins repo is enabled
   lineinfile:
     line: deb http://pkg.jenkins-ci.org/debian-stable binary/
     dest:  /etc/apt/sources.list
     state: present
+  tags:
+    - repos
 
-- name: Ensure Jenkins is present
-  package:
-    name: "jenkins"
-    state: latest
+- name: Debug the repos var
+  debug:
+    var: "{{ docker_repo[ansible_distribution][ansible_distribution_version] }}"
+  tags:
+    - debug
+    - repos
+
+- name: Ensure  that the Docker repo files are present
+  copy:
+    dest: /etc/apt/sources.list.d/docker.list
+    content: "{{ docker_repo[ansible_distribution][ansible_distribution_version] }}"
+  tags:
+    - repos

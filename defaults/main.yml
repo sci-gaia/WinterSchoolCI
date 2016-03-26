@@ -1,2 +1,30 @@
 ---
 # defaults file for jenkins-2.0
+prerequisites:
+  - ufw
+  - mlocate
+  - curl
+  - python-pip
+  - git
+  - apt-transport-https
+  - ca-certificates
+jenkins_connection_delay: 5
+jenkins_connection_retries: 60
+jenkins_hostname: localhost
+jenkins_http_port: 8080
+jenkins_jar_location: /opt/jenkins-cli.jar
+jenkins_plugins:
+  - git
+  - ssh
+  - github-oauth
+  - docker-plugin
+jenkins_url_prefix: ""
+docker_package:
+  RedHat: docker
+  Debian: docker-engine
+docker_repo:
+    Ubuntu:
+        '12.04': 'deb https://apt.dockerproject.org/repo ubuntu-precise main'
+        '14.04': 'deb https://apt.dockerproject.org/repo ubuntu-trusty main'
+        '15.10': 'deb https://apt.dockerproject.org/repo ubuntu-wily main'
+    RedHat: []

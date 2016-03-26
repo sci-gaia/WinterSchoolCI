@@ -3,3 +3,5 @@
 - include: "Prerequisites-{{ ansible_os_family}}.yml"
 - include: "Repo-{{ ansible_os_family }}.yml"
 - include: "Config-{{ ansible_os_family }}.yml"
+- include: plugins.yml
+- include: "Docker-{{ ansible_os_family }}.yml"

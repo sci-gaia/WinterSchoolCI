@@ -4,15 +4,20 @@
   package:
     name: "{{ item }}"
     state: present
-  with_items:
-    - ufw
+  with_items: "{{  prerequisites }}"
+
 # We will add these to a var later
 
 - name: Ensure the correct ports are open (8080)
   ufw:
     direction: in
-    log: yes
-    logging: low
-    name: jenkins
+    #name: jenkins
     proto: tcp
     rule: allow
+    from_port: 8080
+
+
+- name: Ensure Jenkins is present
+  package:
+    name: "jenkins"
+    state: latest
