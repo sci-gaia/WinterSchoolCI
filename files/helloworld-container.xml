@@ -1,0 +1,36 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<project>
+  <actions/>
+  <description>The hello-World Job created by Ansible</description>
+  <keepDependencies>false</keepDependencies>
+  <properties/>
+  <scm class="hudson.scm.NullSCM"/>
+  <canRoam>true</canRoam>
+  <disabled>false</disabled>
+  <blockBuildWhenDownstreamBuilding>false</blockBuildWhenDownstreamBuilding>
+  <blockBuildWhenUpstreamBuilding>false</blockBuildWhenUpstreamBuilding>
+  <triggers/>
+  <concurrentBuild>false</concurrentBuild>
+  <builders>
+    <hudson.tasks.Shell>
+      <command>echo Hello World, this is job $BUILD_NUMBER</command>
+    </hudson.tasks.Shell>
+  </builders>
+  <publishers/>
+  <buildWrappers>
+    <com.cloudbees.jenkins.plugins.okidocki.DockerBuildWrapper plugin="docker-custom-build-environment@1.6.5">
+      <selector class="com.cloudbees.jenkins.plugins.okidocki.PullDockerImageSelector">
+        <image>evarga/jenkins-slave</image>
+      </selector>
+      <dockerHost plugin="docker-commons@1.3.1"/>
+      <dockerRegistryCredentials></dockerRegistryCredentials>
+      <verbose>false</verbose>
+      <volumes class="empty-list"/>
+      <privileged>false</privileged>
+      <group></group>
+      <command>/bin/cat</command>
+      <forcePull>false</forcePull>
+      <net>bridge</net>
+    </com.cloudbees.jenkins.plugins.okidocki.DockerBuildWrapper>
+  </buildWrappers>
+</project>

@@ -1,0 +1,50 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<project>
+  <actions/>
+  <description></description>
+  <keepDependencies>false</keepDependencies>
+  <properties>
+    <com.coravy.hudson.plugins.github.GithubProjectProperty plugin="github@1.18.1">
+      <projectUrl>https://github.com/mtorrisi/csgf-base-portlet/</projectUrl>
+      <displayName></displayName>
+    </com.coravy.hudson.plugins.github.GithubProjectProperty>
+  </properties>
+  <scm class="hudson.plugins.git.GitSCM" plugin="git@2.4.3">
+    <configVersion>2</configVersion>
+    <userRemoteConfigs>
+      <hudson.plugins.git.UserRemoteConfig>
+        <url>https://github.com/mtorrisi/csgf-base-portlet</url>
+        <credentialsId>d9c80839-3bd0-488d-b071-c847d13b5687</credentialsId>
+      </hudson.plugins.git.UserRemoteConfig>
+    </userRemoteConfigs>
+    <branches>
+      <hudson.plugins.git.BranchSpec>
+        <name>*/master</name>
+      </hudson.plugins.git.BranchSpec>
+    </branches>
+    <doGenerateSubmoduleConfigurations>false</doGenerateSubmoduleConfigurations>
+    <submoduleCfg class="list"/>
+  </scm>
+  <canRoam>true</canRoam>
+  <disabled>false</disabled>
+  <blockBuildWhenDownstreamBuilding>false</blockBuildWhenDownstreamBuilding>
+  <blockBuildWhenUpstreamBuilding>false</blockBuildWhenUpstreamBuilding>
+  <triggers>
+    <com.cloudbees.jenkins.GitHubPushTrigger plugin="github@1.18.1">
+      <spec></spec>
+    </com.cloudbees.jenkins.GitHubPushTrigger>
+  </triggers>
+  <concurrentBuild>false</concurrentBuild>
+  <builders>
+    <com.nirima.jenkins.plugins.docker.builder.DockerBuilderControl plugin="docker-plugin@0.16.0">
+      <option class="com.nirima.jenkins.plugins.docker.builder.DockerBuilderControlOptionProvisionAndStart">
+        <cloudName>local docker</cloudName>
+        <templateId>step 1</templateId>
+      </option>
+    </com.nirima.jenkins.plugins.docker.builder.DockerBuilderControl>
+    <hudson.tasks.Ant plugin="ant@1.2">
+      <targets>build</targets>
+    </hudson.tasks.Ant>
+  </builders>
+  <publishers/>
+  <buildWrappers/>
