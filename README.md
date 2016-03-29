@@ -2,6 +2,9 @@ Role Name
 =========
 
 An Ansible role to install the CI server  (Jenkins-2.0) for the [Sci-GaIA](http://www.sci-gaia.eu) winter school
+This role installs a few specific Jenkins plugins, which are needed in the context of the school - see `defaults/main.yml`
+
+The Jenkins server is configured to work with Docker.
 
 Requirements
 ------------

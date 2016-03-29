@@ -5,6 +5,11 @@
     name: jenkins
     state: started
 
+- name: Wait for jenkins
+  wait_for:
+    host: "{{ groups['ci'][0]}}"
+    port: 8080
+
 - name: Get the jenkins-cli jarfile from the Jenkins server.
   get_url:
     url: "http://{{ jenkins_hostname }}:{{ jenkins_http_port }}{{ jenkins_url_prefix }}/jnlpJars/jenkins-cli.jar"
@@ -13,3 +18,9 @@
   until: "'OK' in jarfile_get.msg or 'file already exists' in jarfile_get.msg"
   retries: 5
   delay: 10
+
+- name: Server Config.
+  debug:
+    msg: "You now have to configure server security"
+
+- pause:

@@ -11,6 +11,8 @@
     name: lxc-docker
     purge: yes
     state: absent
+  tags:
+    - docker
 
 - name: Set correct policy for Docker
   shell: apt-cache policy docker-engine
@@ -23,10 +25,25 @@
   tags:
     - docker
 
-- name: Docker-Py local
+# See https://wiki.jenkins-ci.org/display/JENKINS/Docker+Plugin
+- name: Configure Docker Opts for Jenkins
+  lineinfile:
+    dest: /etc/init/docker.conf
+    regexp: 'DOCKER_OPTS=.*'
+    line: 'DOCKER_OPTS="-H tcp://0.0.0.0:4243 -H unix:///var/run/docker.sock"'
+    backrefs: yes
+  #  validate: 'source %s'
+  tags:
+    - docker
+
+# see http://docs.ansible.com/ansible/docker_image_module.html and http://docs.ansible.com/ansible/docker_module.html
+- name: Preqrequisites for Ansible Docker
   pip:
-    name: docker-py
+    name: "{{ item }}"
     state: present
+  with_items:
+    - requests
+    - docker-py
   tags:
     - docker
 
@@ -36,7 +53,6 @@
     state: started
   tags:
     - docker
-
 
 - name: pull a build slave
   docker:

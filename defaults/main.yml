@@ -10,6 +10,7 @@ prerequisites:
   - ca-certificates
 jenkins_connection_delay: 5
 jenkins_connection_retries: 60
+#jenkins_hostname: "{{ groups['ci'][0]}}"
 jenkins_hostname: localhost
 jenkins_http_port: 8080
 jenkins_jar_location: /opt/jenkins-cli.jar
@@ -17,7 +18,12 @@ jenkins_plugins:
   - git
   - ssh
   - github-oauth
+  - ghprb
   - docker-plugin
+  - slack
+  - buildtriggerbadge
+  - docker-custom-build-environment
+  - greenballs
 jenkins_url_prefix: ""
 docker_package:
   RedHat: docker

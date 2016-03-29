@@ -1,7 +1,21 @@
 ---
 # tasks file for jenkins-2.0
+
+# The first set of tasks installs the system Prerequisites for the server
 - include: "Prerequisites-{{ ansible_os_family}}.yml"
+
+# The second set of tasks then ensures that the repositories are set up for Jenkins and Docker
 - include: "Repo-{{ ansible_os_family }}.yml"
+
+# The configuration of the system for the running of jenkins and docker is done. This does
+# _not_ include the configuration of Jenkins itself
 - include: "Config-{{ ansible_os_family }}.yml"
+
+# Installation of the Jenkins plugins
 - include: plugins.yml
+
+# Configuration of Docker and basic images
 - include: "Docker-{{ ansible_os_family }}.yml"
+
+# Creation of base jobs for Jenkins server
+- include: Jenkins-Jobs.yml
