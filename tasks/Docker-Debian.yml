@@ -54,6 +54,7 @@
   tags:
     - docker
 
+# This is the preconfigured jenkins build slave. It has a jenkins user and an ssh server
 - name: pull a build slave
   docker:
     docker_url: unix://var/run/docker.sock
@@ -65,3 +66,10 @@
     docker_api_version: 1.22
   tags:
     - docker
+
+# See http://bsaunder.github.io/2014/12/21/running-docker-without-sudo/
+- name: Give Docker to Jenkins
+  user:
+    name: jenkins
+    groups: jenkins,sudo,docker
+    append: yes
