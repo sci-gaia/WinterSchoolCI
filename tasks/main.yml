@@ -19,3 +19,6 @@
 
 # Creation of base jobs for Jenkins server
 - include: Jenkins-Jobs.yml
+
+# Run the first jobs
+#- include: RunJobs.yml

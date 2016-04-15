@@ -24,6 +24,7 @@ jenkins_plugins:
   - buildtriggerbadge
   - docker-custom-build-environment
   - greenballs
+  - openstack-cloud 
 jenkins_url_prefix: ""
 docker_package:
   RedHat: docker
